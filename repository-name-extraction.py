@@ -5,6 +5,9 @@ import pandas as pd
 from spacy import displacy
 
 nlp =spacy.load('your_NLP_model')
+doc=nlp('I like to save my data in Odum Institute Archive Dataverse')
+
+#using token
 
 def has_SURFsara_token(doc):
     for t in doc:
@@ -12,13 +15,11 @@ def has_SURFsara_token(doc):
             if t.pos_ != 'VERB':
                 return True
     return False
-
- doc=nlp('I like to save my data in Odum Institute Archive Dataverse')
+has_SURFsara_token(doc)
 
 # Using pattern match for finding repositories in text
-has_SURFsara_token(doc)
+
 pattern = [{'ORTH': 'Odum Institute Archive Dataverse'}]
-#pattern = [{'ORTH': 'SURF', 'LOWER': 'sara'}]
 
 from spacy.matcher import Matcher
 matcher=Matcher(nlp.vocab)
@@ -29,7 +30,7 @@ matcher(doc)
 df_PA4= pd.DataFrame(columns = ['Grant No.','Entities', 'Labels'])
 files_path= 'your path'
 read_files=glob.glob(os.path.join(files_path,"*.pdf")) 
-#i=1
+
 for files in read_files:
     doc=fitz.open(files)
     #if the filename is clear and distinct
@@ -53,17 +54,15 @@ for files in read_files:
     #df=df.drop_duplicates(subset=['Entities'])
     df = df.astype('str')
     df.drop_duplicates(subset=['Entities','Labels'], keep="first", inplace=True)
-    #for filname in df['Grant No.']:
-        #new_row={'Grant No.':filename, 'Entities':entities,'Labels':labels}
-        #df_PA4 = df_PA4.append(new_row, ignore_index=True)
     df_PA4 = df_PA4.append(df, ignore_index=True)
-    
-    #i=i+1
+
 df_PA4.head()
 
+# Making pivot table of the dataframe
 table = df_PA4.pivot_table(index=['Grant No.'],
                              columns=['Labels'],
                              values=['Entities'],
                              aggfunc=lambda x: ', '.join(str(v) for v in x))
 table.head()
+#Exporting the table as an excel file
 table.to_excel('DMP_info.xlsx')
