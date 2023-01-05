@@ -7,7 +7,7 @@ The script has three different methods to search for repository names in the tex
 
 2.Pattern-based search: This method uses a pre-defined pattern (e.g., [{'ORTH': 'Odum Institute Archive Dataverse'}]) to search for repository names in the text. It returns a list of matches.
 
-3. PDF-based search: This method reads a series of PDF files from a specified directory ('files_path') and extracts text from them using the 'PyMuPDF' library ('fitz'). Then, it processes the extracted text using the previously loaded NLP model and extracts entities (i.e., named entities) from it. The method stores the extracted entities and their labels (i.e., entity types) in a Pandas dataframe, and then creates a pivot table to summarize the data. Finally, it exports the pivot table as an Excel file ('DMP_info.xlsx').
+3.PDF-based search: This method reads a series of PDF files from a specified directory ('files_path') and extracts text from them using the 'PyMuPDF' library ('fitz'). Then, it processes the extracted text using the previously loaded NLP model and extracts entities (i.e., named entities) from it. The method stores the extracted entities and their labels (i.e., entity types) in a Pandas dataframe, and then creates a pivot table to summarize the data. Finally, it exports the pivot table as an Excel file ('DMP_info.xlsx').
 
 # Dependencies
 
