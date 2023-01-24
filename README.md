@@ -28,3 +28,22 @@ The script has three different methods to search for repository names in the tex
 4. Run the script.
 
 5. The pivot table will be saved as an Excel file in the current working directory.
+
+# Chat GPT's coorection on the code
+It seems like this code is trying to extract repository names (such as 'Odum Institute Archive Dataverse') from a text using spaCy and a combination of tokenization, pattern matching, and PDF processing.
+
+There are a few issues with this code:
+
+The first line where it loads the spaCy model should specify the model name. For example: nlp = spacy.load('en_core_web_sm')
+
+The function has_SURFsara_token() checks for the token 'SURFsara' or 'DRYAD', but it is not used in the code.
+
+The variable files_path is not defined, you should provide the path of folder containig the pdf files.
+
+The line doc=fitz.open(files) should be doc=fitz.open(files).pages
+
+The variable repo_model is not defined, you should replace it with nlp
+
+The line df.drop_duplicates(subset=['Entities','Labels'], keep="first", inplace=True) is removing all the duplicates, you may want to keep all the entities except the ones that are already in the dataframe.
+
+The library glob is not imported, you should add import glob at the top.
